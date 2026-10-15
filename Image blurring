@@ -1,0 +1,29 @@
+
+import cv2
+
+img = cv2.imread("tree.jpg")
+
+if img is None:
+    print("Image not found!")
+    exit()
+
+gaussian = cv2.GaussianBlur(img, (7, 7), 0)
+
+median = cv2.medianBlur(img, 5)
+
+bilateral = cv2.bilateralFilter(img, 9, 75, 75)
+
+images = [
+    ("Original", img),
+    ("Gaussian Blur", gaussian),
+    ("Median Blur", median),
+    ("Bilateral Blur", bilateral)
+]
+
+for name, result in images:
+    cv2.namedWindow(name, cv2.WINDOW_NORMAL)
+    cv2.resizeWindow(name, 300, 250)
+    cv2.imshow(name, result)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
